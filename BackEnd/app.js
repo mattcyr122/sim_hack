@@ -4,6 +4,7 @@
  const bodyParser = require("body-parser");
 // const path = require("path");
 // const authenticateUser = require("./login")(app);
+const {authenticateUser} = require("./authentication");
 // const config = require("./MSSQLconfig.json");
 // const sql = require("tedious").Connection;
 // var Request = require("tedious").Request;
@@ -29,7 +30,7 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//app.post("/login", authenticateUser);
+app.post("/login", authenticateUser);
 
 //basic login form
 app.get("/", function (req, res) {
