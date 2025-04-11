@@ -6,12 +6,15 @@ import Password from 'primevue/password'
 import Button from 'primevue/button'
 import Card from 'primevue/card'
 import Message from 'primevue/message'
+import { useRouter } from 'vue-router'
 
 const username = ref('')
 const password = ref('')
 const errorMessage = ref('')
 const error = ref<boolean>(false)
 const auth = useAuthenticationStore()
+
+const router = useRouter()
 
 const handleLogin = async () => {
   try {
@@ -21,6 +24,7 @@ const handleLogin = async () => {
       //push route
       error.value = false
       errorMessage.value = ''
+      router.push('/home')
     } else {
       //handle incorrect username/ password
       error.value = true
@@ -88,6 +92,6 @@ const handleLogin = async () => {
 
 .centered-div {
   width: 500px; /* Adjust width as needed */
-  height: 300px; /* Adjust height as needed */
+  height: 320px; /* Adjust height as needed */
 }
 </style>
