@@ -12,7 +12,8 @@ const password = ref('')
 const auth = useAuthenticationStore()
 
 const handleLogin = async () => {
-  await auth.login(username.value, password.value)
+ const value =  await auth.login(username.value, password.value)
+
 }
 </script>
 
