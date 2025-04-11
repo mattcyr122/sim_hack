@@ -3,7 +3,8 @@ const app = express();
 const session = require("express-session");
 const bodyParser = require("body-parser");
 // const path = require("path");;
-const {authenticateUser} = require("./routes/authentication.js");
+const { authenticateUser } = require("./routes/authentication.js");
+const { getSimilarProducts } = require("./routes/getSimilarity.js");
 
 app.use(
   session({
@@ -26,13 +27,14 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post("/login", authenticateUser(app));
+app.post("/login", authenticateUser());
+app.get("/search", getSimilarProducts());
 
 //basic login form
 app.get("/", function (req, res) {
   //app.use(express.static(path.join(__dirname, "dist")));
   //res.sendFile(path.join(__dirname, "dist", "index.html"));
-  res.send("hello world")
+  res.send("hello world");
 });
 
 const eventRoutes = require("./routes/events");
