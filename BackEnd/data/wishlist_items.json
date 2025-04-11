@@ -1,0 +1,27 @@
+[
+    {
+      "item_id": 101,
+      "event_id": 1,
+      "wishlist_name": "Bluetooth Speaker",
+      "wishlist_description": "Waterproof JBL speaker",
+      "wishlist_image": "https://example.com/images/speaker.jpg",
+      "cost": 89.99
+    },
+    {
+      "item_id": 102,
+      "event_id": 1,
+      "wishlist_name": "Art Supplies",
+      "wishlist_description": "Sketchbook and brush pens",
+      "wishlist_image": "https://example.com/images/art.jpg",
+      "cost": 45.50
+    },
+    {
+      "item_id": 201,
+      "event_id": 2,
+      "wishlist_name": "Coffee Gift Set",
+      "wishlist_description": "Assorted gourmet coffees",
+      "wishlist_image": "https://example.com/images/coffee.jpg",
+      "cost": 30.00
+    }
+  ]
+  

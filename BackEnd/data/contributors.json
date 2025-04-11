@@ -1,0 +1,27 @@
+[
+    {
+      "event_id": 1,
+      "username": "bob456",
+      "role": "co-host",
+      "privilege": "edit"
+    },
+    {
+      "event_id": 1,
+      "username": "carol789",
+      "role": "guest",
+      "privilege": "read"
+    },
+    {
+      "event_id": 2,
+      "username": "alice123",
+      "role": "organizer",
+      "privilege": "full"
+    },
+    {
+      "event_id": 2,
+      "username": "bob456",
+      "role": "guest",
+      "privilege": "read"
+    }
+  ]
+  

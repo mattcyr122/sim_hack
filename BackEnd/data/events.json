@@ -1,0 +1,19 @@
+[
+    {
+      "event_id": 1,
+      "event_name": "Alice's Birthday",
+      "created_date": "2025-04-10",
+      "due_date": "2025-05-01",
+      "description": "Surprise party for Alice!",
+      "image_id": "https://example.com/images/birthday.jpg"
+    },
+    {
+      "event_id": 2,
+      "event_name": "Office Secret Santa",
+      "created_date": "2025-04-11",
+      "due_date": "2025-12-24",
+      "description": "Annual office gift exchange",
+      "image_id": "https://example.com/images/secretsanta.jpg"
+    }
+  ]
+  
