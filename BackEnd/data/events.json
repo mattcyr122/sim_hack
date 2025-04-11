@@ -1,19 +1,63 @@
 [
-    {
-      "event_id": 1,
-      "event_name": "Alice's Birthday",
-      "created_date": "2025-04-10",
-      "due_date": "2025-05-01",
-      "description": "Surprise party for Alice!",
-      "image_id": "https://example.com/images/birthday.jpg"
-    },
-    {
-      "event_id": 2,
-      "event_name": "Office Secret Santa",
-      "created_date": "2025-04-11",
-      "due_date": "2025-12-24",
-      "description": "Annual office gift exchange",
-      "image_id": "https://example.com/images/secretsanta.jpg"
-    }
-  ]
-  
+  {
+    "event_id": 1,
+    "title": "Alice's Birthday",
+    "date": "2025-05-01",
+    "wishlist": [
+      {
+        "item_id": 1,
+        "item": "Pizza",
+        "contributions": [
+          {
+            "contributorId": 1,
+            "amount": 2
+          }
+        ]
+      },
+      {
+        "item_id": 2,
+        "item": "Drinks",
+        "contributions": []
+      },
+      {
+        "id": null,
+        "item": "Cake",
+        "contributions": []
+      },
+      {
+        "id": 1,
+        "item": "Hat",
+        "contributions": []
+      }
+    ],
+    "contributors": [
+      {
+        "name": "Bob"
+      },
+      {
+        "name": "Charlie"
+      },
+      {
+        "contributor_id": 2,
+        "name": "Alice",
+        "email": "alice@example.com"
+      }
+    ],
+    "contributions": [
+      {
+        "contribution_id": 1744387629573,
+        "contributor_id": 2,
+        "item_name": "Coffee machine",
+        "amount": 100,
+        "message": "Happy housewarming!"
+      }
+    ]
+  },
+  {
+    "event_id": 2,
+    "title": "Game Night",
+    "date": "2025-06-15",
+    "wishlist": [],
+    "contributors": []
+  }
+]
