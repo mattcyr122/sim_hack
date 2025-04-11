@@ -6,8 +6,6 @@
 // // const config = require("./MSSQLconfig.json");
 const fs = require('fs');
 
-
-
 // Load dummy data
 const users = JSON.parse(fs.readFileSync('./data/users.json'));
 
