@@ -1,0 +1,20 @@
+{
+  "name": "sim_hack",
+  "version": "1.0.0",
+  "description": "HackXperience 2025 :]",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattcyr122/sim_hack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattcyr122/sim_hack/issues"
+  },
+  "homepage": "https://github.com/mattcyr122/sim_hack#readme"
+}
