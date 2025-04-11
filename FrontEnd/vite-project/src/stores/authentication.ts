@@ -15,7 +15,7 @@ export const useAuthenticationStore = defineStore('authentication', () => {
    const loading = ref<boolean>(false)
  
    // 🔐 Login action (mocked)
-   async function login(username: string, password: string): Promise<void> {
+   async function login(username: string, password: string): Promise<boolean> {
      loading.value = true
      error.value = null
  
@@ -27,13 +27,15 @@ export const useAuthenticationStore = defineStore('authentication', () => {
        if (username === 'admin' && password === 'admin') {
          user.value = { id: 1, name: 'Admin' }
          token.value = 'fake-jwt-token'
+         return true;
        } else {
-         throw new Error('Invalid credentials')
+         return false;
        }
      } catch (err: any) {
        error.value = err.message
        user.value = null
        token.value = null
+        throw new Error('Invalid credentials')
      } finally {
        loading.value = false
      }
