@@ -1,18 +1,22 @@
 [
-    {
-      "username": "alice123",
-      "password": "hashed_pw1",
-      "email": "alice@example.com"
-    },
-    {
-      "username": "bob456",
-      "password": "hashed_pw2",
-      "email": "bob@example.com"
-    },
-    {
-      "username": "carol789",
-      "password": "hashed_pw3",
-      "email": "carol@example.com"
-    }
-  ]
-  
+  {
+    "username": "alice123",
+    "password": "hashed_pw1",
+    "email": "alice@example.com"
+  },
+  {
+    "username": "bob456",
+    "password": "hashed_pw2",
+    "email": "bob@example.com"
+  },
+  {
+    "username": "carol789",
+    "password": "hashed_pw3",
+    "email": "carol@example.com"
+  },
+  {
+    "username": "adm",
+    "password": "123",
+    "email": "carol@example.com"
+  }
+]

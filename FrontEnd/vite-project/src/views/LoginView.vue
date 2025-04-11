@@ -9,18 +9,35 @@ import Message from 'primevue/message'
 
 const username = ref('')
 const password = ref('')
+const errorMessage = ref('')
+const error = ref<boolean>(false)
 const auth = useAuthenticationStore()
 
 const handleLogin = async () => {
- const value =  await auth.login(username.value, password.value)
-
+  try {
+    const value = await auth.login(username.value, password.value)
+    console.log(value)
+    if (value.data.authentication) {
+      //push route
+      error.value = false
+      errorMessage.value = ''
+    } else {
+      //handle incorrect username/ password
+      error.value = true
+      errorMessage.value = 'Incorrect username/password'
+    }
+  } catch (error) {
+    //handle error(network)
+    error.value = true
+    errorMessage.value = 'Network Error, please try again'
+  }
 }
 </script>
 
 <template>
-  <div class="flex justify-center items-center h-screen bg-gray-100">
-    <Card class="w-full max-w-sm shadow-2xl">
-      <template #title>Login</template>
+  <div class="container">
+    <Card class="centered-div">
+      <template #title>Login to santa's helpers</template>
       <template #content>
         <div class="space-y-4">
           <div>
@@ -40,21 +57,15 @@ const handleLogin = async () => {
               v-model="password"
               class="w-full"
               toggleMask
-              feedback={false}
+              :feedback="false"
               placeholder="Enter password"
             />
           </div>
 
-          <Button
-            label="Login"
-            icon="pi pi-sign-in"
-            class="w-full"
-            :loading="auth.loading"
-            @click="handleLogin"
-          />
+          <Button label="Login" icon="pi pi-sign-in" :loading="auth.loading" @click="handleLogin" />
 
-          <Message v-if="auth.error" severity="error" class="mt-2">
-            {{ auth.error }}
+          <Message v-if="error" severity="error" class="mt-2">
+            {{ errorMessage }}
           </Message>
 
           <Message v-if="auth.user" severity="success" class="mt-2">
@@ -65,3 +76,18 @@ const handleLogin = async () => {
     </Card>
   </div>
 </template>
+<style scoped>
+.container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Full viewport height */
+  width: 100vw;
+  margin: 0; /* Remove any default margin */
+}
+
+.centered-div {
+  width: 500px; /* Adjust width as needed */
+  height: 300px; /* Adjust height as needed */
+}
+</style>

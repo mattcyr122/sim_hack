@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/login", authenticateUser());
-app.get("/search", getSimilarProducts());
+app.post("/search", getSimilarProducts());
 
 //basic login form
 app.get("/", function (req, res) {

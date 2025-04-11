@@ -3,14 +3,12 @@ const axios = require("axios");
 // Handle the login form submission
 function getSimilarProducts() {
   return async function (req, res) {
-    console.log("wassup");
     const { text, top_k } = req.body || {
       text: "I want to give 10 year old boy a toy",
       top_k: 10,
     };
 
     try {
-      console.log("trying");
       // Call the FastAPI /search endpoint with axios
       const response = await axios.post("http://127.0.0.1:8000/search", {
         text: text || "I want to give 10 year old boy a toy",
