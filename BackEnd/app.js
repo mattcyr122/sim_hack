@@ -1,7 +1,7 @@
- const express = require("express");
- const app = express();
-  const session = require("express-session");
- const bodyParser = require("body-parser");
+const express = require("express");
+const app = express();
+const session = require("express-session");
+const bodyParser = require("body-parser");
 // const path = require("path");;
 const {authenticateUser} = require("./routes/authentication.js");
 
@@ -34,6 +34,10 @@ app.get("/", function (req, res) {
   //res.sendFile(path.join(__dirname, "dist", "index.html"));
   res.send("hello world")
 });
+
+const eventRoutes = require("./routes/events");
+app.use("/events", eventRoutes);
+
 
 // Start the server
 app.listen(3000, () => {
