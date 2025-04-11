@@ -2,14 +2,9 @@
  const app = express();
   const session = require("express-session");
  const bodyParser = require("body-parser");
-// const path = require("path");
-// const authenticateUser = require("./login")(app);
-const {authenticateUser} = require("./authentication");
-// const config = require("./MSSQLconfig.json");
-// const sql = require("tedious").Connection;
-// var Request = require("tedious").Request;
-// const TYPES = require("tedious").TYPES;
-// // Use authentication middleware
+// const path = require("path");;
+const {authenticateUser} = require("./routes/authentication.js");
+
 app.use(
   session({
     secret: "mysecret",
@@ -27,10 +22,11 @@ app.use((req, res, next) => {
   next();
 });
 
+//Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post("/login", authenticateUser);
+app.post("/login", authenticateUser(app));
 
 //basic login form
 app.get("/", function (req, res) {
