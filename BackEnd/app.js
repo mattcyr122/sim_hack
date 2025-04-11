@@ -1,7 +1,7 @@
- const express = require("express");
- const app = express();
-  const session = require("express-session");
- const bodyParser = require("body-parser");
+const express = require("express");
+const app = express();
+const session = require("express-session");
+const bodyParser = require("body-parser");
 // const path = require("path");;
 const {authenticateUser} = require("./routes/authentication.js");
 
@@ -34,6 +34,14 @@ app.get("/", function (req, res) {
   //res.sendFile(path.join(__dirname, "dist", "index.html"));
   res.send("hello world")
 });
+
+const eventRoutes = require("./routes/events");
+const contributorRoutes = require("./routes/contributors");
+const contributionRoutes = require("./routes/contributions");
+
+app.use("/events", eventRoutes);
+app.use("/events/:event_id/contributors", contributorRoutes); // mount with param
+app.use("/events/:event_id/contributions", contributionRoutes);
 
 // Start the server
 app.listen(3000, () => {
