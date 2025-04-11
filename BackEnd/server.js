@@ -16,6 +16,8 @@ const wishlistItems = JSON.parse(fs.readFileSync('./data/wishlist_items.json'));
 const contributors = JSON.parse(fs.readFileSync('./data/contributors.json'));
 const contributions = JSON.parse(fs.readFileSync('./data/contributions.json'));
 
+
+
 // Example routes
 app.get('/', (req, res) => {
   res.send('SmartGifter API is running 🚀');
@@ -53,11 +55,18 @@ app.post('/login', (req, res) => {
   );
 
   if (userExists) {
-    res.json({ success: true }); // Or you could return user info here
+    res.json({ authentication: true,
+      message: 'Login successful!',
+      user: {
+        username: userExists.username,
+        email: userExists.email
+      },
+     }); // Or you could return user info here
   } else {
-    res.json({ success: false });
+    res.json({ authentication: false });
   }
 });
+
 
 
 
