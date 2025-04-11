@@ -36,8 +36,12 @@ app.get("/", function (req, res) {
 });
 
 const eventRoutes = require("./routes/events");
-app.use("/events", eventRoutes);
+const contributorRoutes = require("./routes/contributors");
+const contributionRoutes = require("./routes/contributions");
 
+app.use("/events", eventRoutes);
+app.use("/events/:event_id/contributors", contributorRoutes); // mount with param
+app.use("/events/:event_id/contributions", contributionRoutes);
 
 // Start the server
 app.listen(3000, () => {
