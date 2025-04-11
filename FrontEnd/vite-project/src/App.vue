@@ -15,9 +15,18 @@ import HelloWorld from './components/HelloWorld.vue'
         <RouterLink to="/about">About</RouterLink>
       </nav>
     </div>
-  </header> -->
+  </header>  -->
 
-  <RouterView />
+  <div
+    id="app"
+    style="
+      width: 100vw; /* 100% of viewport width */
+      height: 100vh;
+      padding: 0; /* 100% of viewport height */
+    "
+  >
+    <RouterView />
+  </div>
 </template>
 
 <style scoped>
