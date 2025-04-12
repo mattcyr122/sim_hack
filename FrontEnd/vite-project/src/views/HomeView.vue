@@ -87,15 +87,29 @@
   </template>
   
   <script setup lang = 'ts'>
-  import { ref } from 'vue'
+  import { onMounted, ref } from 'vue'
   import logo from '@/assets/logo.svg'
 import { useRouter } from 'vue-router'
+import {useEventsStore} from '@/stores/events'
+import { useAuthenticationStore } from '@/stores/authentication'
+
+const eventsStore = useEventsStore()
+const authStore = useAuthenticationStore()
+  
   
   const showUserSettings = ref(false)
   
   const toggleUserSettings = () => {
     showUserSettings.value = !showUserSettings.value
   }
+
+
+// Call store action in lifecycle hook
+onMounted(() => {
+  eventsStore.getEvents(authStore.user?.name ||'null')
+})
+
+
   // use the router
 const router = useRouter()
 

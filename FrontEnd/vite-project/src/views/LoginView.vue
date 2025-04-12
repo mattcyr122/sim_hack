@@ -11,7 +11,7 @@ import { useRouter } from 'vue-router'
 const username = ref('')
 const password = ref('')
 const errorMessage = ref('')
-const error = ref<boolean>(false)
+const error = ref(false)
 const auth = useAuthenticationStore()
 
 const router = useRouter()
@@ -31,7 +31,7 @@ const handleLogin = async () => {
       error.value = true
       errorMessage.value = 'Incorrect username/password'
     }
-  } catch (error) {
+  } catch (errorr) {
     //handle error(network)
     error.value = true
     errorMessage.value = 'Network Error, please try again'
@@ -67,7 +67,7 @@ const handleLogin = async () => {
             />
           </div>
 
-          <Button label="Login" icon="pi pi-sign-in" :loading="auth.loading" @click="handleLogin" />
+          <Button label="Login" icon="pi pi-sign-in"  @click="handleLogin" />
 
           <Message v-if="error" severity="error" class="mt-2">
             {{ errorMessage }}

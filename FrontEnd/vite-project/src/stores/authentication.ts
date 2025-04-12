@@ -9,7 +9,7 @@ interface User {
 
 export const useAuthenticationStore = defineStore('authentication', () => {
   // 🔐 Auth state with types
-  const user = ref<User | null>(null)
+  const user = ref<User | null>({id:2,name:'bob456'})
   const token = ref<string | null>(null)
   const error = ref<string | null>(null)
   const loading = ref<boolean>(false)
@@ -19,6 +19,7 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     loading.value = true
     error.value = null
     const credentials = { username: username, password: password }
+    console.log(credentials)
     try {
       const response = await http.post('/login', credentials)
       user.value = response.data.user
@@ -36,5 +37,5 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     token.value = null
     error.value = null
   }
-  return { login, logout }
+  return { login, logout,user }
 })
