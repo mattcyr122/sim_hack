@@ -78,7 +78,7 @@ onMounted(() => {
 })
 
 
-  // use the router
+// use the router
 const router = useRouter()
 
 // function to navigate
