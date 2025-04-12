@@ -81,6 +81,7 @@ const handleLogin = async () => {
     </Card>
   </div>
 </template>
+
 <style scoped>
 .container {
   display: flex;
@@ -88,7 +89,7 @@ const handleLogin = async () => {
   align-items: center; /* Center vertically */
   height: 100vh; /* Full viewport height */
   width: 100vw;
-  /*margin: 0; /* Remove any default margin */
+  margin: 0; /* Remove any default margin */
   background: linear-gradient(145deg, #FFFDF7, #FFD70010);
   padding: 1 rem;
 }
