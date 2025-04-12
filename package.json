@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/mattcyr122/sim_hack/issues"
   },
-  "homepage": "https://github.com/mattcyr122/sim_hack#readme"
+  "homepage": "https://github.com/mattcyr122/sim_hack#readme",
+  "dependencies": {
+    "@vue/tsconfig": "^0.7.0"
+  }
 }
