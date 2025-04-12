@@ -5,7 +5,7 @@
           <img :src="logo" alt="Logo" />
         </div>
         <ul class="nav-links">
-          <li><a href="ViewPage.vue">View Wishlists</a></li>
+          <li><a  @click="goToSettings">View Wishlists</a></li>
           <li><a href="#">Page 2</a></li>
         </ul>
         <button class="user-settings-btn" @click="toggleUserSettings">
@@ -86,15 +86,23 @@
     </div>
   </template>
   
-  <script setup>
+  <script setup lang = 'ts'>
   import { ref } from 'vue'
   import logo from '@/assets/logo.svg'
+import { useRouter } from 'vue-router'
   
   const showUserSettings = ref(false)
   
   const toggleUserSettings = () => {
     showUserSettings.value = !showUserSettings.value
   }
+  // use the router
+const router = useRouter()
+
+// function to navigate
+const goToSettings = () => {
+  router.push('/viewWishlist') // or use path: '/settings'
+}
   </script>
   
   <style scoped>
