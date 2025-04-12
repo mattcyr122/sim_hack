@@ -43,9 +43,8 @@ const contributionRoutes = require("./routes/contributions");
 const wishlistRoutes = require("./routes/wishlists");
 
 
-app.use("/events", eventRoutes);
 app.use("/events", contributorRoutes);
-app.use("/events/:event_id/contributors", contributorRoutes);
+// app.use("/events/:event_id/contributors", contributorRoutes);
 app.use("/events/:event_id/contributions", contributionRoutes);
 app.use("/events/:event_id/wishlists", wishlistRoutes); 
 

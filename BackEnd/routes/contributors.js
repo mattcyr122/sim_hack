@@ -33,6 +33,19 @@ router.get("/contributors", (req, res) => {
     const filtered = contributors.filter(c => c.username === username);
     res.json(filtered);
   });
+  // 3. get events for user
+router.get("/getEventsForUser", (req, res) => {
+  const eventId = parseInt(req.params.event_id);
+  console.log(req)
+
+  fs.readFile(contributorsFilePath, "utf-8", (err, data) => {
+    if (err) return res.status(500).json({ error: "Unable to read contributors data" });
+
+    const contributors = JSON.parse(data);
+    const filtered = contributors.filter(c => c.event_id === eventId);
+    res.json(filtered);
+  });
+});
 });
 
 module.exports = router;
