@@ -1,6 +1,7 @@
 const fs = require("fs").promises;
 
 const wishlistPath = "./data/wishlist_items.json";
+const contributionsPath = './data/contributions.json'
 
 // GET all wishlist items for a specific event
 function getAllWishlistItems() {
@@ -9,7 +10,23 @@ function getAllWishlistItems() {
       const { eventID } = req.query;
       const data = await fs.readFile(wishlistPath, "utf-8");
       const wishlistItems = JSON.parse(data);
+      const contributionsData = await fs.readFile(contributionsPath, "utf-8");
+      const  contributions = JSON.parse(contributionsData)
       const eventWishlist = wishlistItems.filter(item => item.event_id == eventID);
+      // {
+      //   "event_id": 1,
+      //   "username": "bob456",
+      //   "item_id": 101,
+      //   "amount": 40.00
+      // },  // res.json(item);
+      eventWishlist.forEach(item => {
+        const co =contributions.filter(m =>
+          m.item_id === item.item_id && m.event_id === item.event_id
+        );
+        console.log(co)
+          item.contributionsToItem = co
+          item.totalContributions = co.reduce((sum, items) => sum + items.amount, 0);
+        });
       res.json(eventWishlist);
     } catch (err) {
       console.error(err);
@@ -24,11 +41,23 @@ function getWishlistItemById() {
     try {
       const { itemID } = req.query;
       const data = await fs.readFile(wishlistPath, "utf-8");
+      const contributionsData = await fs.readFile(wishlistPath, "utf-8");
       const wishlistItems = JSON.parse(data);
       const item = wishlistItems.find(item => item.item_id == itemID);
-
+      // {
+      //   "event_id": 1,
+      //   "username": "bob456",
+      //   "item_id": 101,
+      //   "amount": 40.00
+      // },  // res.json(item);
+        item.forEach(item => {
+          contributionsToItem = contributionsData.find(m =>
+            m.item_id === item.item_id && m.event_id === item.event_id
+          );
+        });
       if (item) {
-        res.json(item);
+        res.json(item)
+      
       } else {
         res.status(404).json({ message: "Wishlist item not found" });
       }

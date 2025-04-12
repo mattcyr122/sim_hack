@@ -42,8 +42,7 @@
                   <h3>{{ item.title }}</h3>
                   <p class="item-description">{{ item.date}}</p>
                   <div class="item-actions">
-                    <button class="item-btn edit">Edit</button>
-                    <button class="item-btn delete">Remove</button>
+                    <button class="item-btn edit" @click="viewEventClick(item.event_id)">Edit</button>
                   </div>
                 </div>
               </div>
@@ -60,15 +59,23 @@
 import { useRouter } from 'vue-router'
 import {useEventsStore} from '@/stores/events'
 import { useAuthenticationStore } from '@/stores/authentication'
+import{useEventItemStore} from '@/stores/eventItems'
 
 const eventsStore = useEventsStore()
 const authStore = useAuthenticationStore()
+const eventItemStore = useEventItemStore()
   
   
   const showUserSettings = ref(false)
   
   const toggleUserSettings = () => {
     showUserSettings.value = !showUserSettings.value
+  }
+
+  function viewEventClick (event_id:Number){
+    eventItemStore.event!.event_id = event_id
+    router.push('/viewWishlist') // or use path: '/settings'
+
   }
 
 

@@ -15,6 +15,10 @@ interface Event {
 
 export const useEventsStore = defineStore('eventsStore', () => {
 const events = ref<Event[]>([])
+const tokens = ref<string[]>([])//user defined themes of wishlist for recommendations
+const suggestions = ref<any[]>([])
+const wishlistItem = ref<any[]>([])
+
 
   async function getEvents(username:string):Promise<any>{
     const payload = {username:username}

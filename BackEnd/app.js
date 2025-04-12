@@ -61,7 +61,7 @@ app.post("/addToWishlist", addToWishlist());
 
 
 // Routes for Wishlists
-app.get("/getAllWishlistItems", wishlist.getAllWishlistItems());
+app.get("/getEventItems", wishlist.getAllWishlistItems());
 app.get("/wishlist/item", wishlist.getWishlistItemById());
 app.post("/addWishlistItem", wishlist.addWishlistItem());
 app.delete("/deleteWishlistItem", wishlist.deleteWishlistItem());
