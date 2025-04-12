@@ -36,48 +36,16 @@
           <section class="wishlist-items">
             <h2>Your Items</h2>
             <div class="items-container">
-              <div class="item-card">
+              
+              <div v-for="item in eventsStore.events" :key="item.event_id" class="item-card">
                 <div class="item-content">
-                  <h3>Gift Box</h3>
-                  <p class="item-description">Beautiful wrapped gift box</p>
+                  <h3>{{ item.title }}</h3>
+                  <p class="item-description">{{ item.date}}</p>
                   <div class="item-actions">
                     <button class="item-btn edit">Edit</button>
                     <button class="item-btn delete">Remove</button>
                   </div>
                 </div>
-              </div>
-              <div class="item-card">
-                <div class="item-content">
-                  <h3>Christmas Tree</h3>
-                  <p class="item-description">6ft pine Christmas tree</p>
-                  <div class="item-actions">
-                    <button class="item-btn edit">Edit</button>
-                    <button class="item-btn delete">Remove</button>
-                  </div>
-                </div>
-              </div>
-              <div class="item-card">
-                <div class="item-content">
-                  <h3>Custom Item</h3>
-                  <p class="item-description">Add your own custom item</p>
-                  <div class="item-actions">
-                    <button class="item-btn edit">Edit</button>
-                    <button class="item-btn delete">Remove</button>
-                  </div>
-                </div>
-              </div>
-              <div class="item-card">
-                <div class="item-content">
-                  <h3>Custom Item</h3>
-                  <p class="item-description">Add your own custom item</p>
-                  <div class="item-actions">
-                    <button class="item-btn edit">Edit</button>
-                    <button class="item-btn delete">Remove</button>
-                  </div>
-                </div>
-              </div>
-              <div class="add-item-card">
-                <button class="add-item-btn">+ Add New Item</button>
               </div>
             </div>
           </section>

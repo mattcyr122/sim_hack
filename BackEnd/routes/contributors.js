@@ -64,7 +64,7 @@ const eventsFilePath = path.join(__dirname,"../data/events.json")
         const filteredEvents = eventsParsed.filter(event =>
           permittedEventIds.includes(event.event_id)
         )
-        console.log(filteredEvents)
+        // console.log(filteredEvents)
   
         res.json(filteredEvents)
       } catch (err) {

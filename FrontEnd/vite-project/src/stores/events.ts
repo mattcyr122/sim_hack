@@ -6,27 +6,27 @@ interface User {
   id: number
   name: string
 }
+interface Event {
+  event_id: number
+  title: string
+  date: string // or `Date` if you're converting it to a Date object
+  wishlist: boolean
+}
 
 export const useEventsStore = defineStore('eventsStore', () => {
-  // 🔐 Auth state with types
-  const user = ref<User | null>(null)
-  const token = ref<string | null>(null)
-  const error = ref<string | null>(null)
-  const loading = ref<boolean>(false)
+const events = ref<Event[]>([])
 
   async function getEvents(username:string):Promise<any>{
     const payload = {username:username}
-    console.log(payload)
     try {
       const response = await http.get('/getEventsForUser', {params:payload})
-      user.value = response.data.user
-      return response
+      events.value = response.data
+      return true
     } catch (err: any) {
       throw new Error(err)
     } finally {
-      loading.value = false
     }
 
   }
-  return { getEvents }
+  return { getEvents,events }
 })
