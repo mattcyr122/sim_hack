@@ -41,11 +41,15 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     }
   }
 
+  function getUser(){
+    return user.value?.username
+  }
+
   // Logout action
   function logout(): void {
     user.value = null
     token.value = null
     error.value = null
   }
-  return { login, logout,user }
+  return { login, logout,user,getUser }
 })

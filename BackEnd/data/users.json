@@ -1,7 +1,7 @@
 [
   {
     "username": "alice123",
-    "password": "hashed_pw1",
+    "password": "123",
     "email": "alice@example.com"
   },
   {

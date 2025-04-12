@@ -1,56 +1,63 @@
-<template>
-    <div id="app" class="app">
-      <nav class="navbar">
-        <div class="logo-container">
-          <img :src="logo" alt="Logo" />
-        </div>
-        <ul class="nav-links">
-          <li><a  @click="goToSettings">View Wishlists</a></li>
-          <li><a href="#">Home</a></li>
-        </ul>
-        <button class="user-settings-btn" @click="toggleUserSettings">
-          <span v-if="!showUserSettings">☰</span>
-          <span v-else>✕</span>
-        </button>
-      </nav>
-  
-      <aside class="user-account-settings" :class="{ 'open': showUserSettings }">
-        <div class="settings-header">
-          <h2>User Settings</h2>
-          <button class="close-settings-btn" @click="showUserSettings = false">✕</button>
-        </div>
-        <div class="settings-content">
-          <p>Account Information</p>
-          <p>Preferences</p>
-          <p>Notifications</p>
-        </div>
-      </aside>
-  
-      <main class="main-content">
-        <div class="wishlist-container">
-          <header class="wishlist-header">
-            <h1>🎁 Welcome to Your Wishlist</h1>
-            <p class="subtitle">Add, manage, and share your wishlist items</p>
-          </header>
-          
-          <section class="wishlist-items">
-            <h2>Your Items</h2>
-            <div class="items-container">
-              
-              <div v-for="item in eventsStore.events" :key="item.event_id" class="item-card">
-                <div class="item-content">
-                  <h3>{{ item.title }}</h3>
-                  <p class="item-description">{{ item.date}}</p>
-                  <div class="item-actions">
-                    <button class="item-btn edit" @click="viewEventClick(item.event_id)">Edit</button>
-                  </div>
-                </div>
+<template> <div id="app" class="app">
+  <nav class="navbar">
+    <div class="logo-container">
+      <img :src="logo" alt="Logo" />
+    </div>
+    <ul class="nav-links">
+      <li><a href="ViewPage.vue">View Wishlists</a></li>
+      <li><a href="/">Home</a></li>
+    </ul>
+    <button class="user-settings-btn" @click="toggleUserSettings">
+      <span v-if="!showUserSettings">☰</span>
+      <span v-else>✕</span>
+    </button>
+  </nav>
+
+  <aside class="user-account-settings" :class="{ 'open': showUserSettings }">
+    <div class="settings-header">
+      <h2>User Settings</h2>
+      <button class="close-settings-btn" @click="showUserSettings = false">✕</button>
+    </div>
+    <div class="settings-content">
+      <p>Account Information</p>
+      <p>Preferences</p>
+      <p>Notifications</p>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="wishlist-container">
+      <header class="wishlist-header">
+        <h1>🎁 Upcoming Events overview</h1>
+        <p class="subtitle">Add, manage, and share events</p>
+      </header>
+      
+      <section class="wishlist-items">
+        <h2>Your Items</h2>
+        <div class="items-container">
+          <div class="item-card" v-for="item in eventsStore.events" :key="item.event_id">
+            <div class="item-content">
+              <h3>{{ item.title }}</h3>
+              <p class="item-description">{{ item.date }}</p>
+              <div class="item-actions">
+                <button class="item-btn edit" @click="viewEventClick(item.event_id)">Edit</button>
+                <button class="item-btn delete">Remove</button>
               </div>
             </div>
-          </section>
+          </div>
+          <div class="add-item-card">
+            <button class="add-item-btn">+ Add New event</button>
+          </div>
         </div>
-      </main>
+      </section>
     </div>
+  </main>
+</div>
+
+
+
+
+    
   </template>
   
   <script setup lang = 'ts'>
@@ -82,7 +89,8 @@ const eventItemStore = useEventItemStore()
 // Call store action in lifecycle hook
 onMounted(() => {
   console.log(authStore.user)
-  eventsStore.getEvents(authStore.user!.username)
+  console.log(authStore.getUser())
+  eventsStore.getEvents(authStore.getUser()!)
 })
 
 

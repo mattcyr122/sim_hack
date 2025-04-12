@@ -22,6 +22,7 @@ const wishlistItem = ref<any[]>([])
 
   async function getEvents(username:string):Promise<any>{
     const payload = {username:username}
+    console.log(payload)
     try {
       const response = await http.get('/getEventsForUser', {params:payload})
       events.value = response.data
