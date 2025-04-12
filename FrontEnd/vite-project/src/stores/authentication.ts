@@ -19,7 +19,6 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     loading.value = true
     error.value = null
     const credentials = { username: username, password: password }
-
     try {
       const response = await http.post('/login', credentials)
       user.value = response.data.user
