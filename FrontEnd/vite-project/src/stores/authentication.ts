@@ -1,20 +1,29 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import http from '../../globals.ts' // use the global axios instance
-// 🧾 Define a User type
+
+// Define the User type
 interface User {
   id: number
   name: string
 }
 
+interface AuthState {
+  user: User | null
+  token: string | null
+  error: string | null
+  loading: boolean
+}
+
+// Define the store
 export const useAuthenticationStore = defineStore('authentication', () => {
-  // 🔐 Auth state with types
+  // Auth state with types
   const user = ref<User | null>(null)
   const token = ref<string | null>(null)
   const error = ref<string | null>(null)
   const loading = ref<boolean>(false)
 
-  // 🔐 Login action (mocked)
+  // Login action
   async function login(username: string, password: string): Promise<boolean | any> {
     loading.value = true
     error.value = null
@@ -30,11 +39,12 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     }
   }
 
-  // 🔓 Logout
+  // Logout action
   function logout(): void {
     user.value = null
     token.value = null
     error.value = null
   }
-  return { login, logout }
+
+  return { user, loading, error, login, logout }
 })

@@ -31,7 +31,7 @@ const handleLogin = async () => {
       error.value = true
       errorMessage.value = 'Incorrect username/password'
     }
-  } catch (error) {
+  } catch (err: unknown) {
     //handle error(network)
     error.value = true
     errorMessage.value = 'Network Error, please try again'
@@ -42,32 +42,32 @@ const handleLogin = async () => {
 <template>
   <div class="container">
     <Card class="centered-div">
-      <template #title>Login to santa's helpers</template>
+      <template #title><h2>Login to Santa's helpers</h2></template>
       <template #content>
-        <div class="space-y-4">
+        <div class="space-y-6">
           <div>
-            <label for="username" class="block text-sm font-medium mb-1">Username</label>
+            <label for="username" class="label">Username</label>
             <InputText
               id="username"
               v-model="username"
-              class="w-full"
+              class="input-field"
               placeholder="Enter username"
             />
           </div>
 
           <div>
-            <label for="password" class="block text-sm font-medium mb-1">Password</label>
+            <label for="password" class="label">Password</label>
             <Password
               id="password"
               v-model="password"
-              class="w-full"
+              class="input-field"
               toggleMask
               :feedback="false"
               placeholder="Enter password"
             />
           </div>
 
-          <Button label="Login" icon="pi pi-sign-in" :loading="auth.loading" @click="handleLogin" />
+          <Button label="Login" icon="pi pi-sign-in" :loading="auth.loading" class="login-btn" @click="handleLogin" />
 
           <Message v-if="error" severity="error" class="mt-2">
             {{ errorMessage }}
@@ -83,76 +83,162 @@ const handleLogin = async () => {
 </template>
 
 <style scoped>
+/* Main container styling */
 .container {
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
   height: 100vh; /* Full viewport height */
   width: 100vw;
-  margin: 0; /* Remove any default margin */
-  background: linear-gradient(145deg, #FFFDF7, #FFD70010);
-  padding: 1 rem;
+  background: linear-gradient(145deg, #fffbf0, #ffd700); /* Light gold and cream background */
+  padding: 1rem;
 }
 
+/* Card styling */
 .centered-div {
-  /*width: 500px; /* Adjust width as needed */
-  /*height: 320px; /* Adjust height as needed */
-  background-color: #FFFDF7;
-  border: 2px solid #FFD700;
+  width: 100%;
+  max-width: 500px; /* Width adjusted for a more compact layout */
+  background-color: #fffdf7; /* Soft cream background */
+  border: 2px solid #FFD700; /* Gold border */
   border-radius: 16px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   padding: 2rem;
-  width: 100%;
-  max-width: 420px;
+  text-align: center;
 }
 
-label {
+/* Title Styling */
+.title {
+  font-family: 'Comic Sans MS', sans-serif; /* Fun and playful font */
+  color: #e53935; /* Christmas red */
+  font-size: 1.8rem; /* Larger font size */
+  margin-bottom: 1.5rem; /* Space below title */
+  text-align: center;
+  letter-spacing: 1px; /* Slight letter spacing for a festive effect */
+}
+
+/* Label for inputs */
+.label {
+  font-weight: bold;
+  font-size: 1rem;
   color: #212121;
-  font-weight: 600;
+  margin-bottom: 0.5rem;
 }
 
-.p-inputtext,
-.p-password {
-  border: 2px solid #FFD700;
+/* Input Fields */
+.input-field {
+  width: 100%;
+  border: 2px solid #FFD700; /* Gold border */
   border-radius: 8px;
-  padding: 0.5rem;
+  padding: 0.8rem;
   background-color: #fff;
   color: #212121;
+  margin-bottom: 1rem;
 }
 
-.p-inputtext:focus,
-.p-password input:focus {
-  border-color: #C62828;
+.input-field:focus {
+  border-color: #C62828; /* Red border on focus */
   box-shadow: 0 0 0 2px rgba(198, 40, 40, 0.2);
 }
 
-.p-button {
-  background-color: #C62828;
-  border: none;
-  color: #FFFDF7;
+/* Button Styling */
+.login-btn {
+  background-color: #c62828; /* Christmas red button */
+  color: #fffdf7;
   font-weight: bold;
   border-radius: 8px;
-  padding: 0.6rem 1.2rem;
+  padding: 0.8rem 1.6rem;
   transition: background-color 0.3s ease;
+  margin-top: 1rem;
+  width: 100%;
 }
 
-.p-button:hover {
-  background-color: #a32121;
+.login-btn:hover {
+  background-color: #a32121; /* Darker red on hover */
 }
 
-.p-message {
-  border-radius: 8px;
-}
-
-.p-message-error {
-  background-color: #ffcdd2;
+/* Error message styling */
+.error-message {
+  background-color: #ffebee; /* Light red background for errors */
   color: #C62828;
-  border-color: #C62828;
+  border-radius: 8px;
+  padding: 0.6rem;
+  font-size: 1rem;
+  margin-top: 1rem;
 }
 
-.p-message-success {
-  background-color: #c8e6c9;
+/* Success message styling */
+.success-message {
+  background-color: #c8e6c9; /* Light green background for success */
   color: #2E7D32;
-  border-color: #2E7D32;
+  border-radius: 8px;
+  padding: 0.6rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+/* MEDIA QUERIES FOR RESPONSIVENESS */
+
+/* Mobile devices (up to 600px) */
+@media (max-width: 600px) {
+  .centered-div {
+    max-width: 90%; /* Allow the card to be more flexible on smaller screens */
+    padding: 1rem; /* Reduce padding for smaller screens */
+  }
+
+  .title {
+    font-size: 1.5rem; /* Slightly smaller title */
+  }
+
+  .input-field {
+    padding: 0.6rem; /* Reduce input field padding */
+  }
+
+  .login-btn {
+    padding: 0.7rem 1.4rem; /* Reduce button padding for small screens */
+  }
+
+  .error-message,
+  .success-message {
+    font-size: 0.9rem; /* Adjust font size for smaller text */
+  }
+}
+
+/* Tablets (600px to 900px) */
+@media (min-width: 601px) and (max-width: 900px) {
+  .centered-div {
+    max-width: 80%; /* Make the card a little smaller */
+  }
+
+  .title {
+    font-size: 1.6rem; /* Smaller title for medium devices */
+  }
+
+  .input-field {
+    padding: 0.7rem; /* Reduce padding on medium devices */
+  }
+
+  .login-btn {
+    padding: 0.75rem 1.5rem; /* Slightly smaller button */
+  }
+}
+
+/* Large devices (desktops) */
+@media (min-width: 901px) {
+  .centered-div {
+    max-width: 500px; /* Keep card width fixed */
+    padding: 2rem; /* Larger padding */
+  }
+
+  .title {
+    font-size: 1.8rem; /* Larger title for desktops */
+  }
+
+  .input-field {
+    padding: 0.8rem; /* Larger input field padding */
+  }
+
+  .login-btn {
+    padding: 0.8rem 1.6rem; /* Standard button size for desktops */
+  }
 }
 </style>
