@@ -18,5 +18,10 @@
     "username": "adm",
     "password": "123",
     "email": "carol@example.com"
+  },
+  {
+    "username": "newuser321",
+    "password": "supersecurepw",
+    "email": "newuser@example.com"
   }
 ]

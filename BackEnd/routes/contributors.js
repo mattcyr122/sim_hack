@@ -48,8 +48,9 @@ const eventsFilePath = path.join(__dirname,"../data/events.json")
   // });
   // });
   
-  // GET all the events
-   function getEventsForUser() {
+  // GET all the events that are tied to a specific user
+  // GET all contributors for a specific event
+   function getContributors() {
     return async function (req, res) {
       try {
         const data = await fs.readFile(contributorsFilePath, 'utf-8')
@@ -74,5 +75,42 @@ const eventsFilePath = path.join(__dirname,"../data/events.json")
     }
   }
 
+  // POST a new contributor to an event
+// POST a new contributor
+function addContributor() {
+  return async function (req, res) {
+    const { event_id, username, role, privilege } = req.body;
 
-module.exports = {getEventsForUser}
+    if (!event_id || !username || !role || !privilege) {
+      return res.status(400).json({ error: "Missing contributor data in request body." });
+    }
+
+    try {
+      const data = await fs.readFile(contributorsFilePath, "utf-8");
+      const contributors = JSON.parse(data);
+
+      const exists = contributors.some(
+        c => c.event_id === event_id && c.username === username
+      );
+      if (exists) {
+        return res.status(400).json({ error: "Contributor already exists." });
+      }
+
+      const newContributor = { event_id, username, role, privilege };
+      contributors.push(newContributor);
+      await fs.writeFile(contributorsFilePath, JSON.stringify(contributors, null, 2));
+
+      res.status(201).json({ message: "Contributor added", contributor: newContributor });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Failed to add contributor." });
+    }
+  };
+}
+
+
+
+module.exports = {
+  getContributors,
+  addContributor
+};

@@ -166,5 +166,13 @@
     "wishlist_description": "Smart fitness band with heart monitor",
     "wishlist_image": "https://img.freepik.com/premium-photo/smart-watch-with-red-dial-black-dial_662214-48073.jpg",
     "cost": 79.99
+  },
+  {
+    "item_id": 1744432648986,
+    "event_id": 2,
+    "wishlist_name": "testing new add wishlist item",
+    "wishlist_description": "Assorted gourmet coffees",
+    "wishlist_image": "https://m.media-amazon.com/images/I/81r3JEgbCJL._AC_SX679_.jpg",
+    "cost": 30
   }
 ]

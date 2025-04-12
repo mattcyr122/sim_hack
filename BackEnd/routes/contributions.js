@@ -1,73 +1,57 @@
-const express = require("express");
-const router = express.Router({ mergeParams: true }); // to access event_id
-const fs = require("fs");
+const fs = require("fs").promises;
+const contributionsFilePath = "./data/contributions.json";
 
-// Load data
-let events = JSON.parse(fs.readFileSync("./data/events.json"));
+// GET all contributions by username (or optionally filter by item_id)
+function getContributions() {
+  return async function (req, res) {
+    try {
+      const data = await fs.readFile(contributionsFilePath, "utf-8");
+      const contributions = JSON.parse(data);
 
+      const { username, item_id } = req.query;
 
-// POST a new contribution to an event
-router.post("/", (req, res) => {
-  const { event_id } = req.params;
-  const { contributor_id, item_name, amount, message } = req.body;
-
-  const eventIndex = events.findIndex(e => e.event_id == event_id);
-  if (eventIndex === -1) {
-    return res.status(404).json({ message: "Event not found" });
-  }
-
-  const newContribution = {
-    contribution_id: Date.now(), // simple unique ID
-    contributor_id,
-    item_name,
-    amount,
-    message
-  };
-
-  if (!events[eventIndex].contributions) {
-    events[eventIndex].contributions = [];
-  }
-
-  events[eventIndex].contributions.push(newContribution);
-
-  fs.writeFile("./data/events.json", JSON.stringify(events, null, 2), (err) => {
-    if (err) {
-      console.error("Failed to save contribution:", err);
-      return res.status(500).json({ message: "Internal server error" });
-    }
-
-    res.status(201).json({ message: "Contribution added", contribution: newContribution });
-  });
-});
-
-
-// DELETE a specific contribution from an event
-router.delete("/:contribution_id", (req, res) => {
-    const { event_id, contribution_id } = req.params;
-  
-    const eventIndex = events.findIndex(e => e.event_id == event_id);
-    if (eventIndex === -1) {
-      return res.status(404).json({ message: "Event not found" });
-    }
-  
-    const contribIndex = events[eventIndex].contributions?.findIndex(
-      c => c.contribution_id == contribution_id
-    );
-  
-    if (contribIndex === -1 || contribIndex === undefined) {
-      return res.status(404).json({ message: "Contribution not found" });
-    }
-  
-    const removed = events[eventIndex].contributions.splice(contribIndex, 1);
-  
-    fs.writeFile("./data/events.json", JSON.stringify(events, null, 2), (err) => {
-      if (err) {
-        console.error("Failed to delete contribution:", err);
-        return res.status(500).json({ message: "Internal server error" });
+      let filtered = contributions;
+      if (username) {
+        filtered = filtered.filter(c => c.username === username);
       }
-  
-      res.json({ message: "Contribution deleted", deleted: removed[0] });
-    });
-  });
-  
-module.exports = router;
+      if (item_id) {
+        filtered = filtered.filter(c => c.item_id == item_id);
+      }
+
+      res.json(filtered);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Unable to read contributions data" });
+    }
+  };
+}
+
+// POST a new contribution
+function addContribution() {
+  return async function (req, res) {
+    const { event_id, username, item_id, amount } = req.body;
+
+    if (!event_id || !username || !item_id || !amount) {
+      return res.status(400).json({ error: "Missing contribution data in request body." });
+    }
+
+    try {
+      const data = await fs.readFile(contributionsFilePath, "utf-8");
+      const contributions = JSON.parse(data);
+
+      const newContribution = { event_id, username, item_id, amount: parseFloat(amount) };
+      contributions.push(newContribution);
+
+      await fs.writeFile(contributionsFilePath, JSON.stringify(contributions, null, 2));
+      res.status(201).json({ message: "Contribution added", contribution: newContribution });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Failed to add contribution." });
+    }
+  };
+}
+
+module.exports = {
+  getContributions,
+  addContribution
+};

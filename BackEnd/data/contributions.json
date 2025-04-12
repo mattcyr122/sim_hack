@@ -1,21 +1,26 @@
 [
-    {
-      "event_id": 1,
-      "username": "bob456",
-      "item_id": 101,
-      "amount": 40.00
-    },
-    {
-      "event_id": 1,
-      "username": "carol789",
-      "item_id": 101,
-      "amount": 49.99
-    },
-    {
-      "event_id": 2,
-      "username": "alice123",
-      "item_id": 201,
-      "amount": 30.00
-    }
-  ]
-  
+  {
+    "event_id": 1,
+    "username": "bob456",
+    "item_id": 101,
+    "amount": 40
+  },
+  {
+    "event_id": 1,
+    "username": "carol789",
+    "item_id": 101,
+    "amount": 49.99
+  },
+  {
+    "event_id": 2,
+    "username": "alice123",
+    "item_id": 201,
+    "amount": 30
+  },
+  {
+    "event_id": 2,
+    "username": "bob123",
+    "item_id": 1001,
+    "amount": 10000
+  }
+]

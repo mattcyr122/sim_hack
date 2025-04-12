@@ -5,7 +5,9 @@ const bodyParser = require("body-parser");
 // const path = require("path");;
 const { authenticateUser } = require("./routes/authentication.js");
 // const { getSimilarProducts } = require("./routes/getSimilarity.js");
-const {getEventsForUser}= require("./routes/contributors.js")
+const contributorsRoutes = require("./routes/contributors.js");
+const contributionsRoutes = require("./routes/contributions.js");
+const usersRoute = require("./routes/users");
 
 const {
   getAllEvents,
@@ -47,11 +49,9 @@ app.get("/", function (req, res) {
   res.send("hello world");
 });
 
-// Routes for contributors
-app.get("/getEventsForUser",getEventsForUser())
 // const eventRoutes = require("./routes/events");
 // const contributorRoutes = require("./routes/contributors");
-const contributionRoutes = require("./routes/contributions");
+
 const wishlistRoutes = require("./routes/wishlists");
 
 // Routes for events
@@ -59,12 +59,24 @@ app.get("/events", getAllEvents());
 app.get("/getEventsbyID", getEventById());
 app.post("/addToWishlist", addToWishlist());
 
+// Routes for Contributions
+app.get("/contributions", contributionsRoutes.getContributions());
+app.post("/addContribution", contributionsRoutes.addContribution());
+
+// Routes for Contributors
+app.get("/contributors", contributorsRoutes.getContributors?.());
+app.post("/addContributor", contributorsRoutes.addContributor());
+
 
 // Routes for Wishlists
 app.get("/getAllWishlistItems", wishlist.getAllWishlistItems());
 app.get("/wishlist/item", wishlist.getWishlistItemById());
 app.post("/addWishlistItem", wishlist.addWishlistItem());
 app.delete("/deleteWishlistItem", wishlist.deleteWishlistItem());
+
+
+// Routes for users
+app.use("/users", usersRoute);
 
 // app.use("/events", contributorRoutes);
 // app.use("/events/:event_id/contributors", contributorRoutes);
