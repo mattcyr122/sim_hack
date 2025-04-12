@@ -48,7 +48,7 @@ const eventsFilePath = path.join(__dirname,"../data/events.json")
   // });
   // });
   
-  // Handle the login form submission
+  // GET all the events
    function getEventsForUser() {
     return async function (req, res) {
       try {

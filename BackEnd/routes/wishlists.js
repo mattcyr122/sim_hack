@@ -1,81 +1,107 @@
-const express = require("express");
-const router = express.Router({ mergeParams: true });
-const fs = require("fs");
+const fs = require("fs").promises;
 
-// Load event data
-const events = JSON.parse(fs.readFileSync("./data/events.json"));
+const wishlistPath = "./data/wishlist_items.json";
 
-// Helper: write to file
-function saveEvents(res, successMessage) {
-  fs.writeFile("./data/events.json", JSON.stringify(events, null, 2), (err) => {
-    if (err) {
+// GET all wishlist items for a specific event
+function getAllWishlistItems() {
+  return async function (req, res) {
+    try {
+      const { eventID } = req.query;
+      const data = await fs.readFile(wishlistPath, "utf-8");
+      const wishlistItems = JSON.parse(data);
+      const eventWishlist = wishlistItems.filter(item => item.event_id == eventID);
+      res.json(eventWishlist);
+    } catch (err) {
       console.error(err);
-      return res.status(500).json({ message: "Error saving data" });
+      res.status(500).json({ error: "Unable to read wishlist data" });
     }
-    res.json({ message: successMessage });
-  });
+  };
 }
 
-// GET all wishlist items for an event
-router.get("/", (req, res) => {
-  const { event_id } = req.params;
-  const event = events.find(e => e.event_id == event_id);
-  if (!event) return res.status(404).json({ message: "Event not found" });
+// GET a specific wishlist item by ID
+function getWishlistItemById() {
+  return async function (req, res) {
+    try {
+      const { itemID } = req.query;
+      const data = await fs.readFile(wishlistPath, "utf-8");
+      const wishlistItems = JSON.parse(data);
+      const item = wishlistItems.find(item => item.item_id == itemID);
 
-  res.json(event.wishlist || []);
-});
-
-// ADD a new item to wishlist
-router.post("/", (req, res) => {
-  const { event_id } = req.params;
-  const { name, description, price } = req.body;
-
-  const event = events.find(e => e.event_id == event_id);
-  if (!event) return res.status(404).json({ message: "Event not found" });
-
-  const newItem = {
-    item_id: Date.now().toString(),
-    name,
-    description,
-    price
+      if (item) {
+        res.json(item);
+      } else {
+        res.status(404).json({ message: "Wishlist item not found" });
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Unable to read wishlist data" });
+    }
   };
+}
 
-  if (!event.wishlist) event.wishlist = [];
-  event.wishlist.push(newItem);
+// POST a new wishlist item
+function addWishlistItem() {
+  return async function (req, res) {
+    const { eventID } = req.query;
+    const { wishlist_name, wishlist_description, wishlist_image, cost } = req.body;
 
-  saveEvents(res, "Wishlist item added");
-});
+    if (!wishlist_name || !cost) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
 
-// UPDATE a wishlist item
-router.put("/:item_id", (req, res) => {
-  const { event_id, item_id } = req.params;
-  const { name, description, price } = req.body;
+    try {
+      const data = await fs.readFile(wishlistPath, "utf-8");
+      const wishlistItems = JSON.parse(data);
 
-  const event = events.find(e => e.event_id == event_id);
-  if (!event) return res.status(404).json({ message: "Event not found" });
+      const newItem = {
+        item_id: Date.now(),
+        event_id: parseInt(eventID),
+        wishlist_name,
+        wishlist_description,
+        wishlist_image,
+        cost: parseFloat(cost)
+      };
 
-  const item = event.wishlist?.find(i => i.item_id == item_id);
-  if (!item) return res.status(404).json({ message: "Item not found" });
+      wishlistItems.push(newItem);
 
-  item.name = name ?? item.name;
-  item.description = description ?? item.description;
-  item.price = price ?? item.price;
-
-  saveEvents(res, "Wishlist item updated");
-});
+      await fs.writeFile(wishlistPath, JSON.stringify(wishlistItems, null, 2));
+      res.status(201).json({ message: "Wishlist item added", item: newItem });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Failed to add wishlist item" });
+    }
+  };
+}
 
 // DELETE a wishlist item
-router.delete("/:item_id", (req, res) => {
-  const { event_id, item_id } = req.params;
+function deleteWishlistItem() {
+  return async function (req, res) {
+    const { eventID, itemID } = req.query;
 
-  const event = events.find(e => e.event_id == event_id);
-  if (!event) return res.status(404).json({ message: "Event not found" });
+    try {
+      const data = await fs.readFile(wishlistPath, "utf-8");
+      const wishlistItems = JSON.parse(data);
 
-  const index = event.wishlist?.findIndex(i => i.item_id == item_id);
-  if (index === -1 || index === undefined) return res.status(404).json({ message: "Item not found" });
+      const newList = wishlistItems.filter(
+        item => !(item.item_id == itemID && item.event_id == eventID)
+      );
 
-  const deleted = event.wishlist.splice(index, 1);
-  saveEvents(res, `Wishlist item deleted`);
-});
+      if (newList.length === wishlistItems.length) {
+        return res.status(404).json({ message: "Wishlist item not found" });
+      }
 
-module.exports = router;
+      await fs.writeFile(wishlistPath, JSON.stringify(newList, null, 2));
+      res.json({ message: "Wishlist item deleted" });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Failed to delete wishlist item" });
+    }
+  };
+}
+
+module.exports = {
+  getAllWishlistItems,
+  getWishlistItemById,
+  addWishlistItem,
+  deleteWishlistItem
+};

@@ -13,7 +13,7 @@
     "wishlist_name": "Art Supplies",
     "wishlist_description": "Sketchbook and brush pens",
     "wishlist_image": "https://i.ebayimg.com/images/g/qKUAAOSwVW1nYLwf/s-l140.webp",
-    "cost": 45.50
+    "cost": 45.5
   },
   {
     "item_id": 201,
@@ -21,7 +21,7 @@
     "wishlist_name": "Coffee Gift Set",
     "wishlist_description": "Assorted gourmet coffees",
     "wishlist_image": "https://m.media-amazon.com/images/I/81r3JEgbCJL._AC_SX679_.jpg",
-    "cost": 30.00
+    "cost": 30
   },
   {
     "item_id": 202,
@@ -29,7 +29,7 @@
     "wishlist_name": "Wireless Headphones",
     "wishlist_description": "Noise-cancelling over-ear headphones",
     "wishlist_image": "https://m.media-amazon.com/images/I/51rpbVmi9XL._AC_SL1200_.jpg",
-    "cost": 120.00
+    "cost": 120
   },
   {
     "item_id": 203,
@@ -37,7 +37,7 @@
     "wishlist_name": "Cookbook",
     "wishlist_description": "Vegan recipes from around the world",
     "wishlist_image": "https://m.media-amazon.com/images/I/81XPMiwBzxL._SL1500_.jpg",
-    "cost": 25.00
+    "cost": 25
   },
   {
     "item_id": 204,
@@ -45,19 +45,19 @@
     "wishlist_name": "Indoor Plant Set",
     "wishlist_description": "Succulent and cactus combo pack",
     "wishlist_image": "https://m.media-amazon.com/images/I/81t-hgXm6jL._AC_SL1500_.jpg",
-    "cost": 40.00
+    "cost": 40
   },
   {
     "item_id": 205,
-    "event_id": 2,
+    "event_id": 3,
     "wishlist_name": "Board Game",
     "wishlist_description": "Strategy board game for 2-4 players",
     "wishlist_image": "https://m.media-amazon.com/images/I/61uExS5ONkL._AC_UL480_FMwebp_QL65_.jpg",
-    "cost": 35.00
+    "cost": 35
   },
   {
     "item_id": 206,
-    "event_id": 2,
+    "event_id": 3,
     "wishlist_name": "Essential Oil Diffuser",
     "wishlist_description": "Wood grain diffuser with LED light",
     "wishlist_image": "https://example.com/images/diffuser.jpg",
@@ -65,15 +65,15 @@
   },
   {
     "item_id": 207,
-    "event_id": 2,
+    "event_id": 3,
     "wishlist_name": "Throw Blanket",
     "wishlist_description": "Cozy fleece blanket in neutral tones",
     "wishlist_image": "https://m.media-amazon.com/images/I/61jxpxbDRNL._AC_UL480_FMwebp_QL65_.jpg",
-    "cost": 32.50
+    "cost": 32.5
   },
   {
     "item_id": 208,
-    "event_id": 2,
+    "event_id": 4,
     "wishlist_name": "Portable Charger",
     "wishlist_description": "High-capacity power bank",
     "wishlist_image": "https://m.media-amazon.com/images/I/611vA+Tc-7L._AC_UL480_FMwebp_QL65_.jpg",
@@ -81,7 +81,7 @@
   },
   {
     "item_id": 209,
-    "event_id": 2,
+    "event_id": 4,
     "wishlist_name": "Smart Mug",
     "wishlist_description": "Temperature control ceramic mug",
     "wishlist_image": "https://m.media-amazon.com/images/I/61lHmvuv78L._AC_UL480_FMwebp_QL65_.jpg",
@@ -89,55 +89,55 @@
   },
   {
     "item_id": 210,
-    "event_id": 2,
+    "event_id": 4,
     "wishlist_name": "Yoga Mat",
     "wishlist_description": "Eco-friendly non-slip yoga mat",
     "wishlist_image": "https://th.bing.com/th/id/OIP.8RFnHhImgtIkde3xORQRsAHaHa?w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
-    "cost": 55.00
+    "cost": 55
   },
   {
     "item_id": 211,
-    "event_id": 2,
+    "event_id": 4,
     "wishlist_name": "Vinyl Records",
     "wishlist_description": "Set of classic rock albums",
     "wishlist_image": "https://m.media-amazon.com/images/I/61xkL9863BL._AC_SL1500_.jpg",
-    "cost": 60.00
+    "cost": 60
   },
   {
     "item_id": 212,
-    "event_id": 2,
+    "event_id": 5,
     "wishlist_name": "Camping Hammock",
     "wishlist_description": "Lightweight travel hammock with straps",
     "wishlist_image": "https://m.media-amazon.com/images/I/61hv1+DlBoL._AC_UL480_FMwebp_QL65_.jpg",
-    "cost": 38.00
+    "cost": 38
   },
   {
     "item_id": 213,
-    "event_id": 2,
+    "event_id": 5,
     "wishlist_name": "Puzzle Set",
     "wishlist_description": "1000-piece scenic jigsaw puzzles",
     "wishlist_image": "https://m.media-amazon.com/images/I/A1pG-VrFBOL._AC_UL480_FMwebp_QL65_.jpg",
-    "cost": 22.00
+    "cost": 22
   },
   {
     "item_id": 214,
-    "event_id": 2,
+    "event_id": 5,
     "wishlist_name": "Digital Frame",
     "wishlist_description": "WiFi-enabled digital photo frame",
     "wishlist_image": "https://m.media-amazon.com/images/I/61O+aorCp0L._AC_UL480_FMwebp_QL65_.jpg",
-    "cost": 85.00
+    "cost": 85
   },
   {
     "item_id": 215,
-    "event_id": 2,
+    "event_id": 5,
     "wishlist_name": "Tea Sampler",
     "wishlist_description": "Variety pack of loose-leaf teas",
     "wishlist_image": "https://m.media-amazon.com/images/I/81pqsCcGYjL.__AC_SX300_SY300_QL70_ML2_.jpg",
-    "cost": 28.00
+    "cost": 28
   },
   {
     "item_id": 216,
-    "event_id": 2,
+    "event_id": 5,
     "wishlist_name": "Desk Organizer",
     "wishlist_description": "Wooden organizer for office supplies",
     "wishlist_image": "https://m.media-amazon.com/images/I/81iQ78BB8OL._AC_UL480_FMwebp_QL65_.jpg",
@@ -145,19 +145,26 @@
   },
   {
     "item_id": 217,
-    "event_id": 2,
+    "event_id": 5,
     "wishlist_name": "DIY Candle Kit",
     "wishlist_description": "Make your own scented candles",
     "wishlist_image": "https://www.honeyspree.com/cdn/shop/products/CraftMakerKits-candle-secretgardens.jpg?v=1724035177&width=990",
-    "cost": 27.50
+    "cost": 27.5
   },
   {
     "item_id": 218,
-    "event_id": 2,
+    "event_id": 6,
     "wishlist_name": "Fitness Tracker",
+    "wishlist_description": "Smart fitness band with heart monitor",
+    "wishlist_image": "https://img.freepik.com/premium-photo/smart-watch-with-red-dial-black-dial_662214-48073.jpg",
+    "cost": 79.99
+  },
+  {
+    "item_id": 1744427312692,
+    "event_id": 6,
+    "wishlist_name": "testing tracker",
     "wishlist_description": "Smart fitness band with heart monitor",
     "wishlist_image": "https://img.freepik.com/premium-photo/smart-watch-with-red-dial-black-dial_662214-48073.jpg",
     "cost": 79.99
   }
 ]
-
