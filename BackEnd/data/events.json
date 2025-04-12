@@ -1,63 +1,14 @@
 [
   {
     "event_id": 1,
-    "title": "Alice's Birthday",
-    "date": "2025-05-01",
-    "wishlist": [
-      {
-        "item_id": 1,
-        "item": "Pizza",
-        "contributions": [
-          {
-            "contributorId": 1,
-            "amount": 2
-          }
-        ]
-      },
-      {
-        "item_id": 2,
-        "item": "Drinks",
-        "contributions": []
-      },
-      {
-        "id": null,
-        "item": "Cake",
-        "contributions": []
-      },
-      {
-        "id": 1,
-        "item": "Hat",
-        "contributions": []
-      }
-    ],
-    "contributors": [
-      {
-        "name": "Bob"
-      },
-      {
-        "name": "Charlie"
-      },
-      {
-        "contributor_id": 2,
-        "name": "Alice",
-        "email": "alice@example.com"
-      }
-    ],
-    "contributions": [
-      {
-        "contribution_id": 1744387629573,
-        "contributor_id": 2,
-        "item_name": "Coffee machine",
-        "amount": 100,
-        "message": "Happy housewarming!"
-      }
-    ]
+    "title": "Hackathon 2025",
+    "date": "2025-05-10",
+    "wishlist": true
   },
   {
     "event_id": 2,
-    "title": "Game Night",
+    "title": "Santa's Workshop",
     "date": "2025-06-15",
-    "wishlist": [],
-    "contributors": []
+    "wishlist": true
   }
 ]

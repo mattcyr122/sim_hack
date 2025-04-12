@@ -4,7 +4,7 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 // const path = require("path");;
 const { authenticateUser } = require("./routes/authentication.js");
-const { getSimilarProducts } = require("./routes/getSimilarity.js");
+// const { getSimilarProducts } = require("./routes/getSimilarity.js");
 
 app.use(
   session({
@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/login", authenticateUser());
-app.post("/search", getSimilarProducts());
+// app.post("/search", getSimilarProducts());
 
 //basic login form
 app.get("/", function (req, res) {
@@ -40,10 +40,14 @@ app.get("/", function (req, res) {
 const eventRoutes = require("./routes/events");
 const contributorRoutes = require("./routes/contributors");
 const contributionRoutes = require("./routes/contributions");
+const wishlistRoutes = require("./routes/wishlists");
+
 
 app.use("/events", eventRoutes);
-app.use("/events/:event_id/contributors", contributorRoutes); // mount with param
+app.use("/events", contributorRoutes);
+app.use("/events/:event_id/contributors", contributorRoutes);
 app.use("/events/:event_id/contributions", contributionRoutes);
+app.use("/events/:event_id/wishlists", wishlistRoutes); 
 
 // Start the server
 app.listen(3000, () => {

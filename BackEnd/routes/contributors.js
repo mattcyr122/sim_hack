@@ -1,48 +1,38 @@
 const express = require("express");
-const router = express.Router({ mergeParams: true }); // to access :event_id from parent
 const fs = require("fs");
+const path = require("path");
+const router = express.Router();
 
-// Load and parse event data
-let events = JSON.parse(fs.readFileSync("./data/events.json"));
+const contributorsFilePath = path.join(__dirname, "../data/contributors.json");
 
-// When we need to get the contributors of an event 
-router.get("/", (req, res) => {
-    const { event_id } = req.params;
-    const event = events.find(e => e.event_id == event_id);
-    if (!event) return res.status(404).json({ message: "Event not found" });
-  
-    res.json(event.contributors || []);
-  });
-  
+// 1. Handle /events/:event_id/contributors
+router.get("/:event_id/contributors", (req, res) => {
+  const eventId = parseInt(req.params.event_id);
 
-// Add a new contributor to an event
-router.post("/", (req, res) => {
-  const { event_id } = req.params;
-  const { contributor_id, name, email } = req.body;
+  fs.readFile(contributorsFilePath, "utf-8", (err, data) => {
+    if (err) return res.status(500).json({ error: "Unable to read contributors data" });
 
-  const eventIndex = events.findIndex(e => e.event_id == event_id);
-  if (eventIndex === -1) {
-    return res.status(404).json({ message: "Event not found" });
-  }
-
-  const newContributor = { contributor_id, name, email };
-  if (!events[eventIndex].contributors) {
-    events[eventIndex].contributors = [];
-  }
-
-  events[eventIndex].contributors.push(newContributor);
-
-  fs.writeFile("./data/events.json", JSON.stringify(events, null, 2), (err) => {
-    if (err) {
-      console.error("Error saving events:", err);
-      return res.status(500).json({ message: "Failed to save contributor" });
-    }
-
-    res.status(201).json({ message: "Contributor added", contributor: newContributor });
+    const contributors = JSON.parse(data);
+    const filtered = contributors.filter(c => c.event_id === eventId);
+    res.json(filtered);
   });
 });
 
+// 2. Handle /events/contributors?username=bob456
+router.get("/contributors", (req, res) => {
+  const username = req.query.username;
 
+  if (!username) {
+    return res.status(400).json({ error: "Missing username query parameter" });
+  }
 
+  fs.readFile(contributorsFilePath, "utf-8", (err, data) => {
+    if (err) return res.status(500).json({ error: "Unable to read contributors data" });
+
+    const contributors = JSON.parse(data);
+    const filtered = contributors.filter(c => c.username === username);
+    res.json(filtered);
+  });
+});
 
 module.exports = router;

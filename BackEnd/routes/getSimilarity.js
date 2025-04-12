@@ -1,4 +1,4 @@
-const axios = require("axios");
+/*const axios = require("axios");
 
 // Handle the login form submission
 function getSimilarProducts() {
@@ -26,3 +26,4 @@ function getSimilarProducts() {
 }
 
 module.exports = { getSimilarProducts };
+*/
