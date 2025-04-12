@@ -18,7 +18,7 @@ export const useEventsStore = defineStore('eventsStore', () => {
     const payload = {username:username}
     console.log(payload)
     try {
-      const response = await http.get('/events/getEventsForUser', {params:payload})
+      const response = await http.get('/getEventsForUser', {params:payload})
       user.value = response.data.user
       return response
     } catch (err: any) {

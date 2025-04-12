@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 // const path = require("path");;
 const { authenticateUser } = require("./routes/authentication.js");
 // const { getSimilarProducts } = require("./routes/getSimilarity.js");
-
+const {getEventsForUser}= require("./routes/contributors.js")
 app.use(
   session({
     secret: "mysecret",
@@ -37,16 +37,17 @@ app.get("/", function (req, res) {
   res.send("hello world");
 });
 
-const eventRoutes = require("./routes/events");
-const contributorRoutes = require("./routes/contributors");
+app.get("/getEventsForUser",getEventsForUser())
+// const eventRoutes = require("./routes/events");
+// const contributorRoutes = require("./routes/contributors");
 const contributionRoutes = require("./routes/contributions");
 const wishlistRoutes = require("./routes/wishlists");
 
 
-app.use("/events", contributorRoutes);
+// app.use("/events", contributorRoutes);
 // app.use("/events/:event_id/contributors", contributorRoutes);
-app.use("/events/:event_id/contributions", contributionRoutes);
-app.use("/events/:event_id/wishlists", wishlistRoutes); 
+// app.use("/events/:event_id/contributions", contributionRoutes);
+// app.use("/events/:event_id/wishlists", wishlistRoutes); 
 
 // Start the server
 app.listen(3000, () => {
