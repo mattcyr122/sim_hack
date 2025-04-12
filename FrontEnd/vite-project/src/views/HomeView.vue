@@ -6,7 +6,7 @@
         </div>
         <ul class="nav-links">
           <li><a  @click="goToSettings">View Wishlists</a></li>
-          <li><a href="#">Page 2</a></li>
+          <li><a href="#">Home</a></li>
         </ul>
         <button class="user-settings-btn" @click="toggleUserSettings">
           <span v-if="!showUserSettings">☰</span>
@@ -81,7 +81,8 @@ const eventItemStore = useEventItemStore()
 
 // Call store action in lifecycle hook
 onMounted(() => {
-  eventsStore.getEvents(authStore.user?.name ||'null')
+  console.log(authStore.user)
+  eventsStore.getEvents(authStore.user!.username)
 })
 
 

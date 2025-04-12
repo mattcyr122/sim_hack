@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const { authenticateUser } = require("./routes/authentication.js");
 // const { getSimilarProducts } = require("./routes/getSimilarity.js");
 const {getEventsForUser}= require("./routes/contributors.js")
+const { getSimilarProducts } = require("./routes/getSimilarity.js");
 
 const {
   getAllEvents,
@@ -46,6 +47,8 @@ app.get("/", function (req, res) {
   //res.sendFile(path.join(__dirname, "dist", "index.html"));
   res.send("hello world");
 });
+
+app.get("/getSimilar",getSimilarProducts())
 
 // Routes for contributors
 app.get("/getEventsForUser",getEventsForUser())

@@ -5,7 +5,7 @@ import http from '../../globals.ts' // use the global axios instance
 // Define the User type
 interface User {
   id: number
-  name: string
+  username: string
 }
 
 interface AuthState {
@@ -18,7 +18,7 @@ interface AuthState {
 // Define the store
 export const useAuthenticationStore = defineStore('authentication', () => {
   // 🔐 Auth state with types
-  const user = ref<User | null>({id:2,name:'bob456'})
+  const user = ref<User | null>({username:'bob456',id:1})
   const token = ref<string | null>(null)
   const error = ref<string | null>(null)
   const loading = ref<boolean>(false)
@@ -32,6 +32,7 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     try {
       const response = await http.post('/login', credentials)
       user.value = response.data.user
+      console.log(user.value)
       return response
     } catch (err: any) {
       throw new Error(err)

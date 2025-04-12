@@ -7,8 +7,7 @@ import pandas as pd
 
 app = FastAPI()
 
-BASE = 'C:\\Users\\zaaoa\\OneDrive\\Documents\\datasets\\'
-file_path = BASE + 'Amazon-Products\\Amazon-Products_Embedded.csv'
+file_path = "C:\\Users\\User\\Downloads\\Amazon-Products_Embedded.csv"
 df = pd.read_csv(file_path, sep=',')
 # Rename the first column to "ID"
 df.rename(columns={df.columns[0]: "ID"}, inplace=True)

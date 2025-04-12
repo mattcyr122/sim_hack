@@ -23,11 +23,40 @@ interface WishlistItem {
     contributionsToItem:number;
     totalContributions:number;
   }
+  interface Product {
+    ID: number;
+    actual_price: string; // e.g., "₹690"
+    discount_price: string; // e.g., "₹299"
+    image: string;
+    link: string;
+    main_category: string;
+    name: string;
+    no_of_ratings: number | null;
+    ratings: number | null;
+    similarity: number;
+    sub_category: string;
+  }
 export const useEventItemStore = defineStore('eventItemStore', () => {
 const event = ref<Event>({event_id:0,title:'a',date:'dsd',wishlist:true})
 const tokens = ref<string[]>([])//user defined themes of wishlist for recommendations
 const suggestions = ref<any[]>([])
 const eventItems = ref<WishlistItem[]>([])
+const products = ref<Product[]>([])
+
+
+async function getSimilar(sentence:string):Promise<any>{
+  const payload = {text:sentence,top_k:10}
+  try {
+    const response = await http.get('/getSimilar', {params:payload})
+    products.value = response.data
+    console.log(products.value)
+   
+    return products.value
+  } catch (err: any) {
+    throw new Error(err)
+  } finally {
+  }
+}
 
 
   async function getEventItems():Promise<any>{
@@ -43,5 +72,5 @@ const eventItems = ref<WishlistItem[]>([])
     }
 
   }
-  return { getEventItems,event,eventItems}
+  return { getEventItems,event,eventItems,getSimilar,products}
 })

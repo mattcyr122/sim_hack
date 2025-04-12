@@ -35,6 +35,42 @@
       <h1>🌟{{ eventItemStore.event.title }}</h1>
       <p class="subtitle">View and grant wishes</p>
     </header>
+      <div class="overflow-x-auto py-4 px-2">
+  <div class="flex w-max divide-x divide-gray-200">
+    <div
+      v-for="(product, index) in eventItemStore.products"
+      :key="product.ID"
+      class="min-w-[250px] max-w-[250px] bg-white rounded-2xl shadow-md p-4 hover:shadow-lg transition duration-300 ease-in-out first:pl-0 last:pr-0 px-4"
+    >
+      <a :href="product.link" target="_blank" rel="noopener noreferrer" class="block">
+        <img
+          :src="product.image"
+          :alt="product.name"
+          class="w-full h-40 object-contain mb-3"
+        />
+        <div class="text-sm font-semibold text-gray-800 line-clamp-2">
+          {{ product.name }}
+        </div>
+        <div class="mt-2">
+          <span class="text-red-600 font-bold">{{ product.discount_price }}</span>
+          <span
+            v-if="product.actual_price"
+            class="text-gray-400 line-through ml-2"
+          >
+            {{ product.actual_price }}
+          </span>
+        </div>
+        <div class="text-xs text-gray-500 mt-1">
+          Category: {{ product.sub_category }}
+        </div>
+      </a>
+    </div>
+</div>
+</div>
+  <div class="p-4">
+    <InputText v-model="text" placeholder="Enter something..." class="mr-2" />
+    <Button label="Click Me" @click="handleClick" />
+  </div>
 
     <section class="wishlist-items">
       <h2>wishlist Item</h2>
@@ -141,11 +177,27 @@ Modal (Hidden by default)
 import { onMounted, ref } from 'vue';
 import { useAuthenticationStore } from '@/stores/authentication'
 import{useEventItemStore} from '@/stores/eventItems'
+import InputText from 'primevue/inputtext'
+import Button from 'primevue/button'
 
 const authStore = useAuthenticationStore()
 const eventItemStore = useEventItemStore()
 
 const isOpen = ref(false)
+// State variable
+const text = ref('')
+const products = ref([])
+
+// Click handler
+function handleClick () {
+  eventItemStore.getSimilar(text.value.trim()).then((response) => {
+    console.log(response)
+    products.value = response
+    console.log(products.value)
+  }).catch((error) => {
+    console.error('Error fetching similar items:', error)
+  })
+}
 
 // Functions to open/close
 const openModal = () => {
