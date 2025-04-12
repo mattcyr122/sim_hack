@@ -30,6 +30,20 @@ router.get("/", (req, res) => {
   res.json(eventWishlist);
 });
 
+// GET a specific wishlist item by ID
+router.get("/:item_id", (req, res) => {
+    const { item_id } = req.params;
+  
+    let wishlistItems = JSON.parse(fs.readFileSync(wishlistPath));
+    const item = wishlistItems.find(item => item.item_id == item_id);
+  
+    if (!item) {
+      return res.status(404).json({ message: "Wishlist item not found" });
+    }
+  
+    res.json(item);
+  });
+
 
 // POST a new wishlist item
 router.post("/", (req, res) => {
@@ -60,73 +74,45 @@ router.post("/", (req, res) => {
     });
   });
   
-
-// UPDATE a wishlist item
-router.put("/:item_id", (req, res) => {
-  const { event_id, item_id } = req.params;
-  const { name, description, price } = req.body;
-
-  const event = events.find(e => e.event_id == event_id);
-  if (!event) return res.status(404).json({ message: "Event not found" });
-
-  const item = event.wishlist?.find(i => i.item_id == item_id);
-  if (!item) return res.status(404).json({ message: "Item not found" });
-
-  item.name = name ?? item.name;
-  item.description = description ?? item.description;
-  item.price = price ?? item.price;
-
-  saveEvents(res, "Wishlist item updated");
-});
-
-// UPDATE a wishlist item
-router.put("/:item_id", (req, res) => {
-    const { item_id } = req.params;
-    const { wishlist_name, wishlist_description, wishlist_image, cost } = req.body;
-  
+  // UPDATE a wishlist item
+  router.put("/:item_id", (req, res) => {
+    const { event_id, item_id } = req.params;
     let wishlistItems = JSON.parse(fs.readFileSync(wishlistPath));
-    const itemIndex = wishlistItems.findIndex(item => item.item_id == item_id);
+    
+    const itemIndex = wishlistItems.findIndex(
+      item => item.item_id == item_id && item.event_id == event_id
+    );
   
     if (itemIndex === -1) {
       return res.status(404).json({ message: "Wishlist item not found" });
     }
   
-    // Update fields (only if provided)
-    if (wishlist_name !== undefined) wishlistItems[itemIndex].wishlist_name = wishlist_name;
-    if (wishlist_description !== undefined) wishlistItems[itemIndex].wishlist_description = wishlist_description;
-    if (wishlist_image !== undefined) wishlistItems[itemIndex].wishlist_image = wishlist_image;
-    if (cost !== undefined) wishlistItems[itemIndex].cost = parseFloat(cost);
+    // Update item with provided body
+    wishlistItems[itemIndex] = {
+      ...wishlistItems[itemIndex],
+      ...req.body,
+    };
   
-    fs.writeFile(wishlistPath, JSON.stringify(wishlistItems, null, 2), (err) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ message: "Failed to update wishlist item." });
-      }
-      res.json({ message: "Wishlist item updated", item: wishlistItems[itemIndex] });
-    });
+    fs.writeFileSync(wishlistPath, JSON.stringify(wishlistItems, null, 2));
+    res.json({ message: "Wishlist item updated", item: wishlistItems[itemIndex] });
   });
   
 
 // DELETE a wishlist item
 router.delete("/:item_id", (req, res) => {
-    const { item_id } = req.params;
-  
+    const { event_id, item_id } = req.params;
     let wishlistItems = JSON.parse(fs.readFileSync(wishlistPath));
   
-    const originalLength = wishlistItems.length;
-    wishlistItems = wishlistItems.filter(item => item.item_id != item_id);
+    const newList = wishlistItems.filter(
+      item => !(item.item_id == item_id && item.event_id == event_id)
+    );
   
-    if (wishlistItems.length === originalLength) {
+    if (newList.length === wishlistItems.length) {
       return res.status(404).json({ message: "Wishlist item not found" });
     }
   
-    fs.writeFile(wishlistPath, JSON.stringify(wishlistItems, null, 2), (err) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ message: "Failed to delete wishlist item." });
-      }
-      res.json({ message: "Wishlist item deleted" });
-    });
+    fs.writeFileSync(wishlistPath, JSON.stringify(newList, null, 2));
+    res.json({ message: "Wishlist item deleted" });
   });
   
 module.exports = router;
