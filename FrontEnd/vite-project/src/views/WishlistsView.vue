@@ -6,7 +6,7 @@
         </div>
         <ul class="nav-links">
           <li><a href="#">View Wishlists</a></li>
-          <li><a href="#">Page 2</a></li>
+          <li><a href="HomeView.vue">Home</a></li>
         </ul>
         <button class="user-settings-btn" @click="toggleUserSettings">
           <span v-if="!showUserSettings">☰</span>

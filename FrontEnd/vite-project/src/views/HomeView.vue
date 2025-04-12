@@ -5,7 +5,8 @@
         <img :src="logo" alt="Logo" />
       </div>
       <ul class="nav-links">
-        <li><a href="ViewPage.vue">View Wishlists</a></li>
+        <li><a href="WishlistsView.vue">View Wishlists</a></li>
+        <li><a href="HomeView.vue">Home</a></li>
       </ul>
       <button class="user-settings-btn" @click="toggleUserSettings">
         <span v-if="!showUserSettings">☰</span>
